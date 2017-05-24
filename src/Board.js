@@ -87,7 +87,6 @@
       // 0 is no piece, 1 is piece 
       var total = 0;
       // iterate throw the row on the board 
-
       for (var i = 0; i < row.length; i++) {
         // add all elements in the array 
         total += row[i];
@@ -156,12 +155,12 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function (majorDiagonalColumnIndexAtFirstRow) {
-      var boardSize = this.get('n');
+
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function () {
-      return false; // fixme
+
     },
 
 
