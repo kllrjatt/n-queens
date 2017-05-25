@@ -205,6 +205,7 @@
       var minorDiag = minorDiagonalColumnIndexAtFirstRow;
       //generate new board 
       var boardSize = this.rows();
+      console.log(boardSize)
       // write variable to hold diag values
       var total = 0;
       //iterate through the boardSize 
