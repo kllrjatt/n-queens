@@ -63,13 +63,13 @@
 
 
     /*
-             _             _     _
-         ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
-        / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
-        \__ \ || (_| | |  | |_  | | | |  __/ | |  __/_
-        |___/\__\__,_|_|   \__| |_| |_|\___|_|  \___(_)
+    _             _     _
+    ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
+    / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
+    \__ \ || (_| | |  | |_  | | | |  __/ | |  __/_
+    |___/\__\__,_|_|   \__| |_| |_|\___|_|  \___(_)
     
-     */
+    */
     /*=========================================================================
     =                 TODO: fill in these Helper Functions                    =
     =========================================================================*/
@@ -155,12 +155,35 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function (majorDiagonalColumnIndexAtFirstRow) {
-
+      // shorten argument name
+      var majorDiag = majorDiagonalColumnIndexAtFirstRow;
+      //generate a new board
+      var boardSize = this.rows();
+      // use a var to keep track of values in matrix 
+      var total = 0;
+      // iterate through the boardSize length
+      for (var i = 0; i < boardSize.length; i++) {
+        // check if a value is present at a given index location in the matrix 
+        if (boardSize[i][i + majorDiag]) {
+          // add value to total if there is something present 
+          total = total + boardSize[i][i + majorDiag];
+        }
+      }
+      // if total is larger than 1, then there is conflict , else not 
+      return total > 1;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function () {
-
+      // find the board size 
+      var boardSize = this.rows();
+      //iterate the baord size 
+      for (var i = 2 - boardSize.length; i < boardSize.length - 1; i++) {
+        if (this.hasMajorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
