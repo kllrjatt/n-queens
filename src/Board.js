@@ -178,11 +178,19 @@
       // find the board size 
       var boardSize = this.rows();
       //iterate the baord size 
+      // diag vs chess board size is a diffrence of 2 for n>2
+      // use ghost array to do standard iteration 
+      // corrners do not have diagnoal 
+      //iterate through ONLY length -1 
       for (var i = 2 - boardSize.length; i < boardSize.length - 1; i++) {
+        // check if each row has a conflict 
         if (this.hasMajorDiagonalConflictAt(i)) {
+          //return true for conflict 
           return true;
         }
       }
+
+      //return false if no conlicts are found
       return false;
     },
 
@@ -193,12 +201,35 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function (minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      // rename argument
+      var minorDiag = minorDiagonalColumnIndexAtFirstRow;
+      //generate new board 
+      var boardSize = this.rows();
+      // write variable to hold diag values
+      var total = 0;
+      //iterate through the boardSize 
+      for (var i = 0; i < boardSize.length; i++) {
+        // check to see if there is a value at given location 
+        // ghost arrays
+        if (boardSize[i][minorDiag - i]) {
+          // add value if value is present
+          total = total + boardSize[i][minorDiag - i];
+        }
+      }
+      return total > 1;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function () {
-      return false; // fixme
+      // create a new board 
+      var boardSize = this.rows();
+      //iterate through the board to check if there is a minor diagonal conflict 
+      for (var i = 1; i < 2 * (boardSize.length - 1); i++) {
+        if (this.hasMinorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
