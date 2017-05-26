@@ -75,8 +75,58 @@ window.countNRooksSolutions = function (n) {
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function (n) {
+  //  MY Partner's implimentation' -- comments by me 
 
+  // generate a new board 
+  var newBoard = new Board({ n: n });
+  // generate a solutions array to hold first possible solution 
+  var solution = [];
+
+// write inner function to find solution on board using togglePiece 
+  // function takes a starting index, boardsize and the newly generated board
+  var toggleSolution = function (index, num, board) {
+    // define base case for function 
+    if (index === num) {
+      // use map to convert newboard to a matrix 
+      solution = _.map(newBoard.rows(), function (row) {
+        // slide each row to get current state of the board 
+        return row.slice();
+      });
+      // return the solution matrix 
+      return solution;
+    }
+
+// iterate through the board 
+    for (var i = 0; i < num; i++) {
+// for the starting location use passed in index and i 
+      board.togglePiece(index, i);
+      // check to see if there are any queen conflict
+      if (!board.hasAnyQueensConflicts()) {
+        // if there are conflicts, call recursive function to test against the board 
+        toggleSolution(index + 1, num, board);
+      }
+      // if there are no conflicts toogle the next location 
+      board.togglePiece(index, i);
+    }
+  };
+// check for edge cases 
+  if (n === 0) {
+    // retun empty array for size 0 
+    return [];
+    // return empty board for n2 and n3 
+  } else if (n === 2 || n === 3) {
+    return newBoard.rows();
+    // return single solution for size 1 
+  } else if (n === 1) {
+    return [[1]];
+    // check for recursive solution with toggle for n >=4
+  } else {
+    toggleSolution(0, n, newBoard);
+  }
+  // return final solution array 
+  return solution;
 };
+
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function (n) {
