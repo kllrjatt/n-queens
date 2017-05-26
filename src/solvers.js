@@ -82,7 +82,7 @@ window.findNQueensSolution = function (n) {
   // generate a solutions array to hold first possible solution 
   var solution = [];
 
-// write inner function to find solution on board using togglePiece 
+  // write inner function to find solution on board using togglePiece 
   // function takes a starting index, boardsize and the newly generated board
   var toggleSolution = function (index, num, board) {
     // define base case for function 
@@ -96,9 +96,9 @@ window.findNQueensSolution = function (n) {
       return solution;
     }
 
-// iterate through the board 
+    // iterate through the board 
     for (var i = 0; i < num; i++) {
-// for the starting location use passed in index and i 
+      // for the starting location use passed in index and i 
       board.togglePiece(index, i);
       // check to see if there are any queen conflict
       if (!board.hasAnyQueensConflicts()) {
@@ -109,7 +109,7 @@ window.findNQueensSolution = function (n) {
       board.togglePiece(index, i);
     }
   };
-// check for edge cases 
+  // check for edge cases 
   if (n === 0) {
     // retun empty array for size 0 
     return [];
